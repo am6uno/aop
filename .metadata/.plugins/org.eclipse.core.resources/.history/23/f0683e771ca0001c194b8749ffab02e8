@@ -1,0 +1,15 @@
+
+public aspect TraceAspectMiller {
+	pointcut classToTrace(): within(*App);
+	pointcut methodToTrace(): classToTrace() && execution(String getName());
+	
+	before(): methodToTrace() {
+		String infoString = "[BGN] " + thisJoinPointStaticPart.getSignature() + ", " +
+				thisJoinPointStaticPart.getSourceLocation();
+	}
+	
+	after(): methodToTrace() {
+		String infoString = "[END] " + thisJoinPointStaticPart.getSignature() + ", " +
+				thisJoinPointStaticPart.getSourceLocation();
+	}
+}
